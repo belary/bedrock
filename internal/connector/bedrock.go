@@ -3,6 +3,7 @@ package connector
 import (
 	"context"
 
+	awsconfig "github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/credentials"
 	"github.com/aws/aws-sdk-go-v2/service/bedrockruntime"
 	"github.com/belary/bedrock/internal/config"
@@ -13,13 +14,15 @@ type BedrockConnector struct {
 }
 
 func NewBedrockConnector(cfg *config.Config) (*BedrockConnector, error) {
-	awsCfg, err := config.LoadDefaultConfig(context.TODO(),
-		config.WithRegion(cfg.AWSRegion),
-		config.WithCredentials(credentials.NewStaticCredentialsProvider(
-			cfg.AWSAccessKeyID,
-			cfg.AWSSecretAccessKey,
-			"",
-		)),
+	awsCfg, err := awsconfig.LoadDefaultConfig(context.TODO(),
+		awsconfig.WithRegion(cfg.AWSRegion),
+		awsconfig.WithCredentialsProvider(
+			credentials.NewStaticCredentialsProvider(
+				cfg.AWSAccessKeyID,
+				cfg.AWSSecretAccessKey,
+				"",
+			),
+		),
 	)
 	if err != nil {
 		return nil, err

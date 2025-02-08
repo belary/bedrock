@@ -3,11 +3,11 @@ package main
 import (
 	"context"
 
-	"bedrock/internal/config"
-	"bedrock/internal/connector"
-	"bedrock/internal/models"
-	"bedrock/internal/service"
-	"bedrock/pkg/utils"
+	"github.com/belary/bedrock/internal/config"
+	"github.com/belary/bedrock/internal/connector"
+	"github.com/belary/bedrock/internal/models"
+	"github.com/belary/bedrock/pkg/utils"
+	"github.com/belary/bedrock/service"
 )
 
 func main() {
